@@ -1,0 +1,7 @@
+# all php files
+*.php
+
+# ignore root files for my tests
+/*.js
+/*.css
+!/widget.js
