@@ -3,7 +3,7 @@ import { Widget } from "../widget.js";
 export class TabsView extends Widget {
 
 	/** @type {TabView[]} */
-	m_tabsList = [];
+	m_list = [];
 
 	/** @type {string} */
 	m_skin = "dfo";
@@ -28,7 +28,7 @@ export class TabsView extends Widget {
 
 	addTab() {
 		let tabView = new TabView(this);
-		this.m_tabsList.push(tabView);
+		this.m_list.push(tabView);
 		return tabView;
 	}
 
@@ -37,9 +37,9 @@ export class TabsView extends Widget {
 	 * @returns {TabView}
 	 */
 	removeTab(tab) {
-		let index = this.m_tabsList.findIndex(item => item === tab);
+		let index = this.m_list.findIndex(item => item === tab);
 		if (index > -1) {
-			this.m_tabsList.splice(index, 1);
+			this.m_list.splice(index, 1);
 		}
 		return tab;
 	}
@@ -105,8 +105,8 @@ export class TabsView extends Widget {
 	 */
 	lookupActiveTab() {
 		let activeTab = null;
-		for (let i = 0; i < this.m_tabsList.length; i++) {
-			let tab = this.m_tabsList[i];
+		for (let i = 0; i < this.m_list.length; i++) {
+			let tab = this.m_list[i];
 			if (tab.m_active) {
 				activeTab = tab;
 				break;
@@ -121,13 +121,13 @@ export class TabsView extends Widget {
 			<div class="tabs-view ${this.m_skin}"></div>
 		`);
 
-		if (this.m_tabsList.length > 0) {
+		if (this.m_list.length > 0) {
 
 			this.$m_root.append(`
 				<div class="tabs"></div>
 			`);
 
-			this.m_tabsList.forEach(tab => {
+			this.m_list.forEach(tab => {
 				tab.createHTML().attachHTML(this.$m_root.find(".tabs"));
 			});
 
