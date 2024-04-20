@@ -100,6 +100,21 @@ export class TabsView extends Widget {
 	}
 
 	/**
+	 * @returns {void}
+	 */
+	activeDefaultTab() {
+		if (this.m_list.length > 0) {
+			for (let i = 0; i < this.m_list.length; i++) {
+				let tab = this.m_list[i];
+				if (!tab.m_disabled) {
+					this.m_list[i].active(true);
+					break;
+				}
+			}
+		}
+	}
+
+	/**
 	 * 
 	 * @returns {?TabView}
 	 */
@@ -145,6 +160,10 @@ export class TabsView extends Widget {
 			this.$m_root.append(`
 				<div class="view"></div>
 			`);
+		}
+
+		if (this.lookupActiveTab() === null) {
+			this.activeDefaultTab();
 		}
 
 		return this;
