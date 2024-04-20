@@ -76,7 +76,7 @@ export class TabsView extends Widget {
 		if (tab.m_url) {
 
 			if (this.m_useIframe) {
-				this.$m_root.find(".tab-view iframe").attr("src", tab.m_url);
+				this.$m_root.find(".view iframe").attr("src", tab.m_url);
 			}
 
 			if (this.m_useFetch) {
@@ -84,7 +84,7 @@ export class TabsView extends Widget {
 					(response) => {
 						response.text().then(
 							(value) => {
-								this.$m_root.find(".tab-view").html(value);
+								this.$m_root.find(".view").html(value);
 							}, (reason) => {
 								console.error(`can't get response data reason: ${reason}`);
 							}
@@ -124,18 +124,18 @@ export class TabsView extends Widget {
 		if (this.m_tabsList.length > 0) {
 
 			this.$m_root.append(`
-				<div class="tabs-list"></div>
+				<div class="tabs"></div>
 			`);
 
 			this.m_tabsList.forEach(tab => {
-				tab.createHTML().attachHTML(this.$m_root.find(".tabs-list"));
+				tab.createHTML().attachHTML(this.$m_root.find(".tabs"));
 			});
 
 		}
 
 		if (this.m_useIframe) {
 			this.$m_root.append(`
-				<div class="tab-view">
+				<div class="view">
 					<iframe src="javascript:void(0)"></iframe>
 				</div>
 			`);
@@ -143,7 +143,7 @@ export class TabsView extends Widget {
 
 		if (this.m_useFetch) {
 			this.$m_root.append(`
-				<div class="tab-view"></div>
+				<div class="view"></div>
 			`);
 		}
 

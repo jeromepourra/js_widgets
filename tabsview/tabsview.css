@@ -1,5 +1,12 @@
-.tabs-view .tabs-list {
+.tabs-view {
+	height: 100%;
 	display: flex;
+	flex-direction: column;
+}
+
+.tabs-view .tabs {
+	display: flex;
+	z-index: 1;
 }
 
 .tabs-view .tab {
@@ -23,12 +30,13 @@
 	margin-right: 0px;
 }
 
-.tabs-view .tab-view {
+.tabs-view .view {
 	height: 100%;
 	padding: 10px;
+	flex-grow: 1;
 }
 
-.tabs-view .tab-view iframe {
+.tabs-view .view iframe {
 	width: 100%;
 	height: 100%;
 	border: 0;

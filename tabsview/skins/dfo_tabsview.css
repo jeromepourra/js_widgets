@@ -8,7 +8,7 @@
 	--tabsView-borderColorDisabled: #ff0000;
 }
 
-.tabs-view.dfo .tabs-list {
+.tabs-view.dfo .tabs {
 	margin-right: var(--tabsView-borderRadius);
 }
 
@@ -31,7 +31,7 @@
 	border-bottom-color: var(--tabsView-borderColor);
 }
 
-.tabs-view.dfo .tab-view {
+.tabs-view.dfo .view {
 	margin-top: calc(0px - var(--tabsView-borderWidth)) ;
 	background-color: var(--tabsView-bgColor);
 	border: var(--tabsView-borderWidth) solid var(--tabsView-borderColor);
