@@ -37,7 +37,7 @@ export class Widget {
 	 */
 	loadSkin(basepath = ".") {
 		let widgetPath = this.m_widgetName.toLowerCase();
-		let skinPath = `${basepath}/${widgetPath}/skins/${this.m_skin}.css`
+		let skinPath = `${basepath}/${widgetPath}/skins/${this.m_skin}/${this.m_skin}.css`
 		return this.appendCss(skinPath);
 	}
 
