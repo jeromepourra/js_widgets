@@ -100,7 +100,7 @@ export class TabsView extends Widget {
 	}
 
 	/**
-	 * @returns {void}
+	 * @returns {?TabView}
 	 */
 	activeDefaultTab() {
 		if (this.m_list.length > 0) {
@@ -108,10 +108,11 @@ export class TabsView extends Widget {
 				let tab = this.m_list[i];
 				if (!tab.m_disabled) {
 					this.m_list[i].active(true);
-					break;
+					return this.m_list[i];
 				}
 			}
 		}
+		return null
 	}
 
 	/**
