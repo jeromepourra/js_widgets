@@ -1,0 +1,25 @@
+.tabs-view.dfo {
+	--tabsView-borderRadius: 8px;
+	--tabsView-borderColor: #000000;
+	--tabsView-bgColor: #ffffff;
+}
+
+.tabs-view.dfo .tabs-list {
+	margin-right: var(--tabsView-borderRadius);
+}
+
+.tabs-view.dfo .tabs-list .tab {
+	border: 1px solid var(--tabsView-borderColor);
+	border-radius: var(--tabsView-borderRadius) var(--tabsView-borderRadius) 0px 0px;
+}
+
+.tabs-view.dfo .tab-view {
+	margin-top: -1px;
+	background-color: var(--tabsView-bgColor);
+	border: 1px solid var(--tabsView-borderColor);
+	border-radius: 0px var(--tabsView-borderRadius) var(--tabsView-borderRadius) var(--tabsView-borderRadius);
+}
+
+.tabs-view.dfo .tab {
+	
+}
