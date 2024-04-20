@@ -1,0 +1,34 @@
+.tabs-view .tabs-list {
+	display: flex;
+}
+
+.tabs-view .tab {
+	margin: 0px 5px;
+	padding: 3px 15px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.tabs-view .tab .title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tabs-view .tab:first-child {
+	margin-left: 0px;
+}
+
+.tabs-view .tab:last-child {
+	margin-right: 0px;
+}
+
+.tabs-view .tab-view {
+	height: 100%;
+	padding: 10px;
+}
+
+.tabs-view .tab-view iframe {
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
