@@ -264,7 +264,6 @@ class TabView extends Widget {
 
 	/**
 	 * @returns {this}
-	 * @override
 	 */
 	createHTML() {
 

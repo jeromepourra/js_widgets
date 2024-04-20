@@ -23,34 +23,34 @@ export class Widget {
 
 	/**
 	 * @param {string} basepath 
-	 * @returns {void}
+	 * @returns {this}
 	 */
 	loadCss(basepath = ".") {
 		let widgetPath = this.m_widgetName.toLowerCase();
 		let cssPath = `${basepath}/${widgetPath}/${widgetPath}.css`
-		this.appendCss(cssPath);
+		return this.appendCss(cssPath);
 	}
 
 	/**
 	 * @param {string} basepath 
-	 * @returns {void}
+	 * @returns {this}
 	 */
 	loadSkin(basepath = ".") {
 		let widgetPath = this.m_widgetName.toLowerCase();
 		let skinPath = `${basepath}/${widgetPath}/skins/${this.m_skin}.css`
-		this.appendCss(skinPath);
+		return this.appendCss(skinPath);
 	}
 
 	/**
 	 * @param {string} path 
+	 * @returns {this}
 	 */
 	appendCss(path) {
-		setTimeout(() => {
-			if ($(`link[href="${path}"]`).length === 0) {
-				let $link = $(`<link rel="stylesheet" href="${path}"></link>`);
-				$(document.head).append($link);
-			}
-		}, 500);
+		if ($(`link[href="${path}"]`).length === 0) {
+			let $link = $(`<link rel="stylesheet" href="${path}"></link>`);
+			$(document.head).append($link);
+		}
+		return this;
 	}
 
 	/**
