@@ -1,25 +1,39 @@
 .tabs-view.dfo {
+	--tabsView-borderWidth: 1px;
 	--tabsView-borderRadius: 8px;
 	--tabsView-borderColor: #000000;
 	--tabsView-bgColor: #ffffff;
+	--tabsView-bgColorInactive: #e8e8e8;
+	--tabsView-bgColorDisabled: #ffdcdc;
+	--tabsView-borderColorDisabled: #ff0000;
 }
 
 .tabs-view.dfo .tabs-list {
 	margin-right: var(--tabsView-borderRadius);
 }
 
-.tabs-view.dfo .tabs-list .tab {
-	border: 1px solid var(--tabsView-borderColor);
+.tabs-view.dfo .tab {
+	cursor: pointer;
+	background-color: var(--tabsView-bgColorInactive);
+	border: var(--tabsView-borderWidth) solid var(--tabsView-borderColor);
 	border-radius: var(--tabsView-borderRadius) var(--tabsView-borderRadius) 0px 0px;
 }
 
-.tabs-view.dfo .tab-view {
-	margin-top: -1px;
+.tabs-view.dfo .tab.active {
 	background-color: var(--tabsView-bgColor);
-	border: 1px solid var(--tabsView-borderColor);
-	border-radius: 0px var(--tabsView-borderRadius) var(--tabsView-borderRadius) var(--tabsView-borderRadius);
+	border-bottom: var(--tabsView-borderWidth) solid var(--tabsView-bgColor);
 }
 
-.tabs-view.dfo .tab {
-	
+.tabs-view.dfo .tab.disabled {
+	cursor: not-allowed;
+	background-color: var(--tabsView-bgColorDisabled);
+	border-color: var(--tabsView-borderColorDisabled);
+	border-bottom-color: var(--tabsView-borderColor);
+}
+
+.tabs-view.dfo .tab-view {
+	margin-top: calc(0px - var(--tabsView-borderWidth)) ;
+	background-color: var(--tabsView-bgColor);
+	border: var(--tabsView-borderWidth) solid var(--tabsView-borderColor);
+	border-radius: 0px var(--tabsView-borderRadius) var(--tabsView-borderRadius) var(--tabsView-borderRadius);
 }
