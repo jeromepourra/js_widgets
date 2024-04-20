@@ -29,6 +29,18 @@ export class TabsView extends Widget {
 	}
 
 	/**
+	 * @param {TabView} tab
+	 * @returns {TabView}
+	 */
+	removeTab(tab) {
+		let index = this.m_tabsList.findIndex(item => item === tab);
+		if (index > -1) {
+			this.m_tabsList.splice(index, 1);
+		}
+		return tab;
+	}
+
+	/**
 	 * @param {boolean} v
 	 */
 	useIframe(v) {
@@ -50,6 +62,25 @@ export class TabsView extends Widget {
 			this.m_useIframe = false;
 		}
 		return this;
+	}
+
+	/**
+	 * @param {TabView} tab 
+	 */
+	activateTab(tab) {
+
+		if (tab.m_url) {
+
+			if (this.m_useIframe) {
+				this.$m_root.find(".tab-view iframe").attr("src", tab.m_url);
+			}
+
+			if (this.m_useFetch) {
+				// fetch data here
+			}
+
+		}
+
 	}
 
 	/**
@@ -135,6 +166,14 @@ class TabView extends Widget {
 	}
 
 	/**
+	 * @returns {this}
+	 */
+	remove() {
+		this.m_tabsView.removeTab(this);
+		return this;
+	}
+
+	/**
 	 * @param {string} v
 	 * @returns {this}
 	 */
@@ -171,6 +210,7 @@ class TabView extends Widget {
 			}
 
 			this.$m_root.addClass("active");
+			this.m_tabsView.activateTab(this);
 
 		} else {
 			this.$m_root.removeClass("active");
