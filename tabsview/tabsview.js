@@ -2,12 +2,16 @@ import { Widget } from "../widget.js";
 
 export class TabsView extends Widget {
 
-	/**
-	 * @type {TabView[]}
-	 */
+	/** @type {TabView[]} */
 	m_tabsList = [];
+
+	/** @type {string} */
 	m_skin = "dfo";
+
+	/** @type {boolean} */
 	m_useIframe = false;
+
+	/** @type {boolean} */
 	m_useFetch = false;
 
 	constructor() {
@@ -76,7 +80,19 @@ export class TabsView extends Widget {
 			}
 
 			if (this.m_useFetch) {
-				// fetch data here
+				fetch(tab.m_url).then(
+					(response) => {
+						response.text().then(
+							(value) => {
+								this.$m_root.find(".tab-view").html(value);
+							}, (reason) => {
+								console.error(`can't get response data reason: ${reason}`);
+							}
+						);
+					}, (reason) => {
+						console.error(`can't fetch url '${tab.m_url}' reason: ${reason}`);
+					}
+				);
 			}
 
 		}
