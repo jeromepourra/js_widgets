@@ -23,7 +23,7 @@ export class TabsView extends Widget {
 	}
 
 	addTab() {
-		let tabView = new TabView();
+		let tabView = new TabView(this);
 		this.m_tabsList.push(tabView);
 		return tabView;
 	}
@@ -50,6 +50,22 @@ export class TabsView extends Widget {
 			this.m_useIframe = false;
 		}
 		return this;
+	}
+
+	/**
+	 * 
+	 * @returns {?TabView}
+	 */
+	lookupActiveTab() {
+		let activeTab = null;
+		for (let i = 0; i < this.m_tabsList.length; i++) {
+			let tab = this.m_tabsList[i];
+			if (tab.m_active) {
+				activeTab = tab;
+				break;
+			}
+		}
+		return activeTab;
 	}
 
 	createHTML() {
@@ -92,19 +108,31 @@ export class TabsView extends Widget {
 
 class TabView extends Widget {
 
-	/** 
-	 * @type {?string} 
-	 */
+	/** @type {TabsView} */
+	m_tabsView;
+
+	/** @type {?string} */
 	m_title = null;
 
-	/**
-	 * @type {?string}
-	 */
+	/** @type {?string} */
 	m_url = null;
 
+	/** @type {boolean} */
+	m_active = false;
+
+	/** @type {boolean} */
+	m_disabled = false;
+
+	/** @type {JQuery<HTMLElement>} */
 	$m_root = $();
 
-	constructor() { super() }
+	/**
+	 * @param {TabsView} tabsView 
+	 */
+	constructor(tabsView) {
+		super();
+		this.m_tabsView = tabsView;
+	}
 
 	/**
 	 * @param {string} v
@@ -125,6 +153,48 @@ class TabView extends Widget {
 	}
 
 	/**
+	 * @param {boolean} v 
+	 * @returns {this}
+	 */
+	active(v) {
+
+		if (v) {
+
+			// la tab est désactivé on ne va pas plus loin
+			if (this.m_disabled) {
+				return this;
+			}
+
+			let activeTab = this.m_tabsView.lookupActiveTab();
+			if (activeTab) {
+				activeTab.active(false);
+			}
+
+			this.$m_root.addClass("active");
+
+		} else {
+			this.$m_root.removeClass("active");
+		}
+
+		this.m_active = v;
+		return this;
+	}
+
+	/**
+	 * @param {boolean} v 
+	 * @returns {this}
+	 */
+	disabled(v) {
+		if (v) {
+			this.$m_root.addClass("disabled");
+		} else {
+			this.$m_root.removeClass("disabled");
+		}
+		this.m_disabled = v;
+		return this;
+	}
+
+	/**
 	 * @returns {this}
 	 * @override
 	 */
@@ -134,11 +204,23 @@ class TabView extends Widget {
 			<div class="tab"></div>
 		`);
 
+		if (this.m_active) {
+			this.active(true);
+		}
+
+		if (this.m_disabled) {
+			this.disabled(true);
+		}
+
 		if (this.m_title) {
 			this.$m_root.append(`
 				<div class="title">${this.m_title}</div>
 			`);
 		}
+
+		this.$m_root.on("click", () => {
+			this.active(true)
+		});
 
 		return this;
 
