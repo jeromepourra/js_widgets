@@ -5,9 +5,6 @@ export class TabsView extends Widget {
 	/** @type {TabView[]} */
 	m_list = [];
 
-	/** @type {string} */
-	m_skin = "dfo";
-
 	/** @type {boolean} */
 	m_useIframe = false;
 
@@ -16,14 +13,6 @@ export class TabsView extends Widget {
 
 	constructor() {
 		super();
-	}
-
-	/**
-	 * @param {string} v
-	 */
-	skin(v) {
-		this.m_skin = v;
-		return this;
 	}
 
 	addTab() {
@@ -132,6 +121,9 @@ export class TabsView extends Widget {
 	}
 
 	createHTML() {
+
+		this.loadCss();
+		this.loadSkin();
 
 		this.$m_root = $(`
 			<div class="tabs-view ${this.m_skin}"></div>
@@ -272,7 +264,6 @@ class TabView extends Widget {
 
 	/**
 	 * @returns {this}
-	 * @override
 	 */
 	createHTML() {
 

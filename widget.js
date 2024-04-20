@@ -1,16 +1,57 @@
 export class Widget {
 
-	/**
-	 * @type {JQuery<HTMLElement>}
-	 */
+	/** @type {JQuery<HTMLElement>} */
 	$m_root = $(); // root widget container
 
-	/**
-	 * @type {string}
-	 */
+	/** @type {string} */
 	m_skin = "dfo"; // default skin
 
-	constructor() {}
+	/** @type {string} */
+	m_widgetName;
+
+	constructor() {
+		this.m_widgetName = this.constructor.name;
+	}
+
+	/**
+	 * @param {string} v
+	 */
+	skin(v) {
+		this.m_skin = v;
+		return this;
+	}
+
+	/**
+	 * @param {string} basepath 
+	 * @returns {this}
+	 */
+	loadCss(basepath = ".") {
+		let widgetPath = this.m_widgetName.toLowerCase();
+		let cssPath = `${basepath}/${widgetPath}/${widgetPath}.css`
+		return this.appendCss(cssPath);
+	}
+
+	/**
+	 * @param {string} basepath 
+	 * @returns {this}
+	 */
+	loadSkin(basepath = ".") {
+		let widgetPath = this.m_widgetName.toLowerCase();
+		let skinPath = `${basepath}/${widgetPath}/skins/${this.m_skin}.css`
+		return this.appendCss(skinPath);
+	}
+
+	/**
+	 * @param {string} path 
+	 * @returns {this}
+	 */
+	appendCss(path) {
+		if ($(`link[href="${path}"]`).length === 0) {
+			let $link = $(`<link rel="stylesheet" href="${path}"></link>`);
+			$(document.head).append($link);
+		}
+		return this;
+	}
 
 	/**
 	 * This method is just a way to force child class overring it
