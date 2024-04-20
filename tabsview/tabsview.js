@@ -55,7 +55,7 @@ export class TabsView extends Widget {
 	createHTML() {
 
 		this.$m_root = $(`
-			<div class="${this.m_skin}-tabs-view"></div>
+			<div class="tabs-view ${this.m_skin}"></div>
 		`);
 
 		if (this.m_tabsList.length > 0) {
