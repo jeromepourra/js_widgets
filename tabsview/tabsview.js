@@ -1,3 +1,4 @@
+import { Spinner } from "../spinner/spinner.js";
 import { Widget } from "../widget.js";
 
 export class TabsView extends Widget {
@@ -13,6 +14,8 @@ export class TabsView extends Widget {
 
 	constructor() {
 		super();
+		this.loadCss();
+		this.loadSkin();
 	}
 
 	addTab() {
@@ -65,14 +68,25 @@ export class TabsView extends Widget {
 		if (tab.m_url) {
 
 			if (this.m_useIframe) {
-				this.$m_root.find(".view iframe").attr("src", tab.m_url);
+
+				this.$m_root.find(".view iframe").hide();
+				let spinner = this.createSpinner({iframe: true});
+
+				this.$m_root.find(".view iframe").attr("src", tab.m_url).on("load", () => {
+					this.$m_root.find(".view iframe").show();
+					this.removeSpinner(spinner);
+				});
 			}
 
 			if (this.m_useFetch) {
+
+				let spinner = this.createSpinner();
+
 				fetch(tab.m_url).then(
 					(response) => {
 						response.text().then(
 							(value) => {
+								this.removeSpinner(spinner);
 								this.$m_root.find(".view").html(value);
 							}, (reason) => {
 								console.error(`can't get response data reason: ${reason}`);
@@ -82,10 +96,40 @@ export class TabsView extends Widget {
 						console.error(`can't fetch url '${tab.m_url}' reason: ${reason}`);
 					}
 				);
+
 			}
 
 		}
 
+	}
+
+	/**
+	 * @param {?{iframe: boolean}} options
+	 * @returns {Spinner}
+	 */
+	createSpinner(options = null) {
+
+		let spinner = new Spinner();
+		spinner.image("spin.gif", Spinner.SIZES.MED);
+		spinner.skin("dfo").createHTML();
+
+		if (options) {
+			if (options.iframe) {
+				spinner.attachHTML(this.$m_root.find(".view"));
+				return spinner;
+			}
+		}
+
+		spinner.replaceHTML(this.$m_root.find(".view"));
+		return spinner;
+
+	}
+
+	/**
+	 * @param {Spinner} spinner 
+	 */
+	removeSpinner(spinner) {
+		spinner.removeHTML();
 	}
 
 	/**
@@ -121,9 +165,6 @@ export class TabsView extends Widget {
 	}
 
 	createHTML() {
-
-		this.loadCss();
-		this.loadSkin();
 
 		this.$m_root = $(`
 			<div class="tabs-view ${this.m_skin}"></div>
