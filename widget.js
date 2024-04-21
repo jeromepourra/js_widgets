@@ -103,4 +103,32 @@ export class Widget {
 
 	}
 
+	/**
+	 * 
+	 * @param {string | JQuery<HTMLElement>} to
+	 * @returns {this}
+	 */
+	replaceHTML(to) {
+
+		/** @type {JQuery<HTMLElement>} */
+		let $to;
+
+		if (!(to instanceof $)) {
+			// @ts-ignore
+			$to = $(to);
+		} else {
+			$to = to;
+		}
+
+		if ($to.length > 0) {
+			$to.empty();
+			$to.append(this.$m_root);
+		} else {
+			console.error(`Widget.attachHTML() -> selector ${to} doesn't exists`);
+		}
+
+		return this;
+
+	}
+
 }
