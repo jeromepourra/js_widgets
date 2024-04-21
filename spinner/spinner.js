@@ -23,6 +23,8 @@ export class Spinner extends Widget {
 
 	constructor() {
 		super();
+		this.loadCss();
+		this.loadSkin();
 	}
 
 	/**
@@ -46,14 +48,15 @@ export class Spinner extends Widget {
 		return this;
 	}
 
+	removeHTML() {
+		this.$m_root.remove();
+	}
+
 	/**
 	 * This method is just a way to force child class overring it
 	 * @returns {this}
 	 */
 	createHTML() {
-
-		this.loadCss();
-		this.loadSkin();
 
 		this.$m_root = $(`
 			<div class="spinner"></div>
@@ -68,6 +71,23 @@ export class Spinner extends Widget {
 		}
 
 		return this;
+
+	}
+
+	/**
+	 * 
+	 * @param {string | JQuery<HTMLElement>} to 
+	 * @returns {this}
+	 */
+	attachHTML(to) {
+
+		if (this.m_duration) {
+			setTimeout(() => {
+				this.$m_root.remove();
+			}, this.m_duration);
+		}
+
+		return super.attachHTML(to);
 
 	}
 
