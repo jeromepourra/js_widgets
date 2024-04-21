@@ -185,7 +185,7 @@ export class TabsView extends Widget {
 		if (this.m_useIframe) {
 			this.$m_root.append(`
 				<div class="view">
-					<iframe src="javascript:void(0)"></iframe>
+					<iframe src=""></iframe>
 				</div>
 			`);
 		}
