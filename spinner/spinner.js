@@ -48,10 +48,6 @@ export class Spinner extends Widget {
 		return this;
 	}
 
-	removeHTML() {
-		this.$m_root.remove();
-	}
-
 	/**
 	 * This method is just a way to force child class overring it
 	 * @returns {this}

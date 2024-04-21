@@ -82,6 +82,15 @@ export class Widget {
 	}
 
 	/**
+	 * This method removing the widget main element
+	 * @return {this}
+	 */
+	removeHTML() {
+		this.$m_root.remove();
+		return this;
+	}
+
+	/**
 	 * 
 	 * @param {string | JQuery<HTMLElement>} to
 	 * @returns {this}
