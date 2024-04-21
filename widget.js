@@ -9,8 +9,12 @@ export class Widget {
 	/** @type {string} */
 	m_widgetName;
 
+	/** @type {string} */
+	m_widgetFolder;
+
 	constructor() {
 		this.m_widgetName = this.constructor.name;
+		this.m_widgetFolder = this.m_widgetName.toLowerCase();
 	}
 
 	/**
@@ -19,6 +23,22 @@ export class Widget {
 	skin(v) {
 		this.m_skin = v;
 		return this;
+	}
+
+	/**
+	 * @param {string} basepath 
+	 * @returns {string}
+	 */
+	widgetUrl(basepath = ".") {
+		return `${basepath}/${this.m_widgetFolder}`;
+	}
+
+	/**
+	 * @param {string} basepath 
+	 * @returns {string}
+	 */
+	skinsUrl(basepath = ".") {
+		return `${this.widgetUrl(basepath)}/skins/${this.m_skin}`;
 	}
 
 	/**
@@ -37,7 +57,7 @@ export class Widget {
 	 */
 	loadSkin(basepath = ".") {
 		let widgetPath = this.m_widgetName.toLowerCase();
-		let skinPath = `${basepath}/${widgetPath}/skins/${this.m_skin}.css`
+		let skinPath = `${basepath}/${widgetPath}/skins/${this.m_skin}/${this.m_skin}.css`
 		return this.appendCss(skinPath);
 	}
 
@@ -62,6 +82,15 @@ export class Widget {
 	}
 
 	/**
+	 * This method removing the widget main element
+	 * @return {this}
+	 */
+	removeHTML() {
+		this.$m_root.remove();
+		return this;
+	}
+
+	/**
 	 * 
 	 * @param {string | JQuery<HTMLElement>} to
 	 * @returns {this}
@@ -75,6 +104,34 @@ export class Widget {
 
 		if (to.length > 0) {
 			this.$m_root.appendTo(to);
+		} else {
+			console.error(`Widget.attachHTML() -> selector ${to} doesn't exists`);
+		}
+
+		return this;
+
+	}
+
+	/**
+	 * 
+	 * @param {string | JQuery<HTMLElement>} to
+	 * @returns {this}
+	 */
+	replaceHTML(to) {
+
+		/** @type {JQuery<HTMLElement>} */
+		let $to;
+
+		if (!(to instanceof $)) {
+			// @ts-ignore
+			$to = $(to);
+		} else {
+			$to = to;
+		}
+
+		if ($to.length > 0) {
+			$to.empty();
+			$to.append(this.$m_root);
 		} else {
 			console.error(`Widget.attachHTML() -> selector ${to} doesn't exists`);
 		}
