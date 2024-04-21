@@ -3,7 +3,7 @@ import { Widget } from "../widget.js";
 
 export class TabsView extends Widget {
 
-	/** @type {TabView[]} */
+	/** @type {TabsViewItem[]} */
 	m_list = [];
 
 	/** @type {boolean} */
@@ -19,14 +19,14 @@ export class TabsView extends Widget {
 	}
 
 	addTab() {
-		let tabView = new TabView(this);
-		this.m_list.push(tabView);
-		return tabView;
+		let tab = new TabsViewItem(this);
+		this.m_list.push(tab);
+		return tab;
 	}
 
 	/**
-	 * @param {TabView} tab
-	 * @returns {TabView}
+	 * @param {TabsViewItem} tab
+	 * @returns {TabsViewItem}
 	 */
 	removeTab(tab) {
 		let index = this.m_list.findIndex(item => item === tab);
@@ -61,7 +61,7 @@ export class TabsView extends Widget {
 	}
 
 	/**
-	 * @param {TabView} tab 
+	 * @param {TabsViewItem} tab 
 	 */
 	activateTab(tab) {
 
@@ -133,7 +133,7 @@ export class TabsView extends Widget {
 	}
 
 	/**
-	 * @returns {?TabView}
+	 * @returns {?TabsViewItem}
 	 */
 	activeDefaultTab() {
 		if (this.m_list.length > 0) {
@@ -150,7 +150,7 @@ export class TabsView extends Widget {
 
 	/**
 	 * 
-	 * @returns {?TabView}
+	 * @returns {?TabsViewItem}
 	 */
 	lookupActiveTab() {
 		let activeTab = null;
@@ -206,7 +206,7 @@ export class TabsView extends Widget {
 
 }
 
-class TabView extends Widget {
+class TabsViewItem extends Widget {
 
 	/** @type {TabsView} */
 	m_tabsView;
@@ -222,9 +222,6 @@ class TabView extends Widget {
 
 	/** @type {boolean} */
 	m_disabled = false;
-
-	/** @type {JQuery<HTMLElement>} */
-	$m_root = $();
 
 	/**
 	 * @param {TabsView} tabsView 
