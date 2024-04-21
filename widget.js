@@ -9,8 +9,12 @@ export class Widget {
 	/** @type {string} */
 	m_widgetName;
 
+	/** @type {string} */
+	m_widgetFolder;
+
 	constructor() {
 		this.m_widgetName = this.constructor.name;
+		this.m_widgetFolder = this.m_widgetName.toLowerCase();
 	}
 
 	/**
@@ -19,6 +23,22 @@ export class Widget {
 	skin(v) {
 		this.m_skin = v;
 		return this;
+	}
+
+	/**
+	 * @param {string} basepath 
+	 * @returns {string}
+	 */
+	widgetUrl(basepath = ".") {
+		return `${basepath}/${this.m_widgetFolder}`;
+	}
+
+	/**
+	 * @param {string} basepath 
+	 * @returns {string}
+	 */
+	skinsUrl(basepath = ".") {
+		return `${this.widgetUrl(basepath)}/skins/${this.m_skin}`;
 	}
 
 	/**
